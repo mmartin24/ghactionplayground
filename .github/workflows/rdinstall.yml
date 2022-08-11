@@ -12,17 +12,33 @@ jobs:
         
       - name: Check access to /dev/kvm
         run: |
-          PRIVILEGES=$([ -r /dev/kvm ] && [ -w /dev/kvm ] || echo 'insufficient privileges')
-          if [ ${PRIVILEGES}="insufficient privileges" ]; then 
+          echo 'Ensuring access to /dev/kvm'
           sudo usermod -a -G kvm "$USER" 
-          else
-          echo "User has correct privileges for kvm"
-          fi
-
+          
       - name: Add Rancher Desktop repository
         run: |
           curl -s https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/Release.key | gpg --dearmor | sudo dd status=none of=/usr/share/keyrings/isv-rancher-stable-archive-keyring.gpg
           echo 'deb [signed-by=/usr/share/keyrings/isv-rancher-stable-archive-keyring.gpg] https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/ ./' | sudo dd status=none of=/etc/apt/sources.list.d/isv-rancher-stable.list
           sudo apt-get update
           sudo apt-get install rancher-desktop
+          
+      - name: Start Rancher Desktop prior installing Epinio
+        run: |
+          ## Note: this is a workaround. rdctl should be executable after rd install 
+          ## Directly start from rdctl when this bug is fixed: https://github.com/rancher-sandbox/rancher-desktop/issues/2683
+
+          ## Start Rancher Desktop
+          rancher-desktop >/dev/null 2>&1  &
+          sleep 40
+
+          ## Stop RD to later change to moby
+          rdctl shutdown
+          sleep 40
+
+          ## Change Engine
+          rdctl set --container-engine docker
+
+          ## Start again RD
+          rdctl start
+          sleep 60
     
