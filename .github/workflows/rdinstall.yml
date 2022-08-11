@@ -12,8 +12,8 @@ jobs:
         
       - name: Check access to /dev/kvm
         run: |
-          echo 'Ensuring access to /dev/kvm'
-          sudo usermod -a -G kvm "$USER" 
+          #echo 'Ensuring access to /dev/kvm'
+          #sudo usermod -a -G kvm "$USER" 
           
       - name: Add Rancher Desktop repository
         run: |
