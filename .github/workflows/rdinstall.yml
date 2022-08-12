@@ -5,12 +5,12 @@ on: push
 jobs:
   install-rancherdesktop:
     name: Install Rancher Desktop
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
         - name: Checkout code
           uses: actions/checkout@v2
           
         - name: Check access to /dev/kvm
           run: |
-            echo 'Ensuring access to /dev/kvm
+            echo 'Ensuring access to /dev/kvm'
             sudo usermod -a -G kvm "$USER" 
