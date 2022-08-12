@@ -10,16 +10,16 @@ jobs:
 
   install-rancherdesktop:
     name: Install Rancher Desktop
-    runs-on: self-hosted
+    runs-on: self-hostedº
     needs: build
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
           
-        # - name: Check access to /dev/kvm
-        #   run: |
-        #     #echo 'Ensuring access to /dev/kvm'
-        #     #sudo usermod -a -G kvm "$USER" 
+      - name: Check access to /dev/kvm
+        run: |
+          echo 'Ensuring access to /dev/kvm'
+          sudo usermod -a -G kvm "$USER" 
             
         # - name: Add Rancher Desktop repository
         #   run: |
