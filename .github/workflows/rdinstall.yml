@@ -12,5 +12,5 @@ jobs:
           
         - name: Check access to /dev/kvm
           run: |
-            echo 'Ensuring access to /dev/kvm'
+            echo ' Ensuring access to /dev/kvm '
             sudo usermod -a -G kvm "$USER" 
