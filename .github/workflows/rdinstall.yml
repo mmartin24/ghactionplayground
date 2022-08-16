@@ -1,22 +1,22 @@
-name: Rancher Desktop Install
+# name: Rancher Desktop Install
 
-on: push
+# on: push
 
-jobs:
-  install-rancherdesktop:
-    name: Install Rancher Desktop
-    runs-on: self-hosted
-    steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
+# jobs:
+#   install-rancherdesktop:
+#     name: Install Rancher Desktop on KDE
+#     runs-on: self-hosted
+#     steps:
+#         - name: Checkout code
+#           uses: actions/checkout@v2
           
-        - name: Check access to /dev/kvm
-          run: |
-            echo ' Ensuring access to /dev/kvm '
-            sudo usermod -a -G kvm "$USER" 
-        - name: Add Rancher Desktop repository
-          run: |
-            curl -s https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/Release.key | gpg --dearmor | sudo dd status=none of=/usr/share/keyrings/isv-rancher-stable-archive-keyring.gpg
-            echo 'deb [signed-by=/usr/share/keyrings/isv-rancher-stable-archive-keyring.gpg] https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/ ./' | sudo dd status=none of=/etc/apt/sources.list.d/isv-rancher-stable.list
-            # sudo apt-get update
-            # sudo apt-get install rancher-desktop
+#         - name: Check access to /dev/kvm
+#           run: |
+#             echo ' Ensuring access to /dev/kvm '
+#             sudo usermod -a -G kvm "$USER" 
+#         - name: Add Rancher Desktop repository
+#           run: |
+#             curl -s https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/Release.key | gpg --dearmor | sudo dd status=none of=/usr/share/keyrings/isv-rancher-stable-archive-keyring.gpg
+#             echo 'deb [signed-by=/usr/share/keyrings/isv-rancher-stable-archive-keyring.gpg] https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/ ./' | sudo dd status=none of=/etc/apt/sources.list.d/isv-rancher-stable.list
+#             sudo apt-get update
+#             sudo apt-get install rancher-desktop

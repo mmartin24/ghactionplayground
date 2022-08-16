@@ -1,0 +1,21 @@
+name: Rancher Desktop Install
+
+on: push
+
+jobs:
+  install-rancherdesktop:
+    name: Install Rancher Desktop
+    runs-on: self-hosted
+    steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+          
+        - name: Check access to /dev/kvm
+          run: |
+            echo ' Ensuring access to /dev/kvm '
+            sudo usermod -a -G kvm "$USER" 
+        - name: Add Rancher Desktop repository
+          run: |
+            sudo zypper addrepo https://download.opensuse.org/repositories/isv:/Rancher:/stable/rpm/isv:Rancher:stable.repo
+            sudo zypper install rancher-desktop
+
