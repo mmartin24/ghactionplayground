@@ -16,6 +16,6 @@ jobs:
             sudo usermod -a -G kvm "$USER" 
         - name: Add Rancher Desktop repository
           run: |
-            sudo zypper addrepo https://download.opensuse.org/repositories/isv:/Rancher:/stable/rpm/isv:Rancher:stable.repo
-            sudo zypper install rancher-desktop
+            sudo zypper addrepo -y https://download.opensuse.org/repositories/isv:/Rancher:/stable/rpm/isv:Rancher:stable.repo
+            sudo zypper install -y rancher-desktop
 
